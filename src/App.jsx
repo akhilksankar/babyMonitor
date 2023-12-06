@@ -10,13 +10,19 @@ function babyMonitoring() {
 
   const fetchData = async () =>{
     try{
-      const response = await axios.get('http://192.168.4.1/babymonitor');
-      setTemperature(response.temperature);
-      setFlag(response.flag);
+      const response = await axios.get('/babymonitor');
+      console.log(response);
+      // setTemperature(response.temperature);
+      // setFlag(response.flag);
     }catch(error){
       console.error('Error fetcing data:', error);
     }
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => fetchData(),5000);
+    return () => clearInterval(interval);
+  },[]);
 
   return (
     <>
